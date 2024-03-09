@@ -26,7 +26,7 @@ class Dishes {
       await knex('ingredients').insert(ingredientsInsert);
     }
 
-    return response.status(201).json();
+    return response.status(201).json({ id: dish_id });
   }
 
   async update(request, response) {
@@ -77,8 +77,10 @@ class Dishes {
           name: ingredient.trim(),
           dish_id: id,
         }));
-
-      await knex('ingredients').insert(newIngredients);
+      
+      if (newIngredients.length !== 0) {
+        await knex('ingredients').insert(newIngredients);
+      }
     } else {
       await knex('ingredients').delete().where({ dish_id: id });
     }
@@ -98,44 +100,22 @@ class Dishes {
       .where({ dish_id: id })
       .orderBy('name');
     
-    return response.json({ ...dish, dishIngredients});
+    return response.json({ ...dish, ingredients: dishIngredients});
   }
 
   async index(request, response) {
-    const { title, ingredients } = request.query;
 
-    let dishes;
-    if (ingredients) {
-      const filterIngredients = ingredients
-        .split(',')
-        .filter((item) => item.trim());
-      
-      dishes = await knex('ingredients')
-        .select(['dishes.id', 'dishes.name'])
-        .whereLike('dishes.name', `%${title}%`)
-        .whereIn('ingredients.name', filterIngredients)
-        .innerJoin('dishes', 'dishes.id', 'ingredients.dish_id')
-        .orderBy('dishes.name');
-    } else {
-      dishes = await knex('dishes')
-        .whereLike('name', `%${title}%`)
-        .orderBy('name');
-    }
+    const { search } = request.query;
 
-    const allIngredients = await knex('ingredients');
+    let dishes = await knex
+      .select('d.*')
+      .from('dishes as d')
+      .join('ingredients as i', 'd.id', 'i.dish_id')
+      .whereLike('d.name', `%${search}%`)
+      .orWhereLike('i.name', `%${search}%`)
+      .groupBy('d.id');
 
-    const dishesWithIngredients = dishes.map((dish) => {
-      const dishIngredients = allIngredients.filter(
-        (ingredients) => ingredients.dish_id === dish.id
-      );
-
-      return {
-        ...dish,
-        ingredients: dishIngredients,
-      };
-    });
-
-    return response.json(dishesWithIngredients);
+    return response.json(dishes);
   }
 
   async delete(request, response) {

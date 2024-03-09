@@ -19,6 +19,9 @@ dishesRoutes.post('/:id', dishesController.update);
 dishesRoutes.delete('/:id', dishesController.delete);
 dishesRoutes.get('/:id', dishesController.show);
 dishesRoutes.get('/', dishesController.index);
-dishesRoutes.patch('/photo/:id', upload.single('avatar'), dishesPhotoController.update);
+dishesRoutes.patch(
+  '/photo/:id', 
+  upload.single('photo'), 
+  dishesPhotoController.update);
 
 module.exports = dishesRoutes;

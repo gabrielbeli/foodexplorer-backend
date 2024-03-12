@@ -22,8 +22,7 @@ class RequestsController {
 
     if (existingRequest) {
       
-      const newQuantity = Number(quantity) + existingRequest.quantity;
-      const updateRequest = { ...existingRequest, quantity: newQuantity };
+      const updateRequest = { ...existingRequest, quantity };
 
       await knex('requests').update(updateRequest).where({
         user_id, dish_id });

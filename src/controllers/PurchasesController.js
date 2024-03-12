@@ -22,7 +22,7 @@ class PurchasesController {
     });
 
     const details = requestWithSubTotal.reduce(
-      (acc, item) => acc + `${item.quantity}x ${item.name}, `, '' );
+      (acc, item) => acc + `${item.quantity} x ${item.name}, `, '' );
     
     await knex('purchases').insert({ user_id, details: details.slice(0, -2) });
     await knex('requests').where({ user_id }).delete();

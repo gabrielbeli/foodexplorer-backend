@@ -12,7 +12,7 @@ router.use('/users', usersRouter);
 router.use('/dishes', dishesRouter);
 router.use('/favorites', favoritesRouter);
 router.use('/requests', resquestsRouter);
-router.use('/puchases', purchasesRouter);
+router.use('/purchases', purchasesRouter);
 router.use('/sessions', sessionsRouter);
 
 router.get('/', (request, response) =>

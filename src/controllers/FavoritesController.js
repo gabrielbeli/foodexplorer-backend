@@ -18,13 +18,7 @@ class FavoritesController {
       throw new AppError('Prato não encontrado');
     }
 
-    const id = await knex.raw(
-      `
-      INSERT OR IGNORE INTO favorites (user_id, dish_id)
-      VALUES (?, ?)
-      `,
-      [user_id, dish_id]
-    );
+    const id = await knex('favorites').insert({user_id, dish_id}) 
 
     return response.status(201).json({id});
   }
@@ -42,7 +36,6 @@ class FavoritesController {
 
   async delete(request, response) {
     const { id } = request.params;
-
     await knex('favorites').where({ id }).delete();
 
     return response.json();

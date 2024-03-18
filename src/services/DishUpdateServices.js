@@ -24,19 +24,17 @@ class DishUpdateServices {
     ingredients = ingredients ?? [];
 
     if (ingredients.length > 0) {
-      // TRAZENDO OS ingredientes antigos
+      
       const oldIngredients = await this.dishesRepository
         .getDishIngredients(id)
         .then((data) => data.map((ingredients) => ingredients.name));
 
-      // removendo os ingredients que não uso mais
       const remove = oldIngredients.filter(
         (ingredient) => !ingredients.includes(ingredient)
       );
 
       await this.dishesRepository.removeDishIngredients({ dish_id: id, remove });
 
-      // ELEMENTOS NOVOS PARA INSERIR
       const newIngredients = ingredients
         .filter((ingredient) => !oldIngredients.includes(ingredient))
         .map((ingredient) => ({

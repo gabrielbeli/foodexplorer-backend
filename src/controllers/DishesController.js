@@ -3,7 +3,6 @@ const AppError = require('../utils/AppError');
 const DishesRepository = require('../repositories/DishesRepository');
 const DishCreateServices = require('../services/DishCreateServices');
 const DishUpdateServices = require('../services/DishUpdateServices');
-const DishUpdateServices = require('../services/DishUpdateServices');
 class DishesController {
   async create(request, response) {
     let { name, category, price, description, ingredients } = request.body;

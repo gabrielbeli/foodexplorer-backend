@@ -155,6 +155,6 @@ para criar um usurário administrador, basta fazer uma requisição em /users/, 
 - `Jest`
 
 ---
-## 🎨 Veja o [Fron-end](https://github.com/gabrielbeli/foodexplorer-frontend) 
+## 🎨 Veja o [Front-end](https://github.com/gabrielbeli/foodexplorer-frontend) 
 
 ## Autor: [@gabrielbeli](https://www.linkedin.com/in/gabrielbeli)

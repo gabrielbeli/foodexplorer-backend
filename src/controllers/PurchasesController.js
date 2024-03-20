@@ -24,22 +24,24 @@ class PurchasesController {
     const details = requestWithSubTotal.reduce(
       (acc, item) => acc + `${item.quantity} x ${item.name}, `, '' );
     
-    const id = await knex('purchases').insert({ user_id, updateAt, details: details.slice(0, -2) });
+    const updatedAt = new Date().toISOString();
+    
+    const id = await knex('purchases').insert({ user_id, updatedAt, details: details.slice(0, -2) });
     await knex('requests').where({ user_id }).delete();
 
     return response.status(201).json({ details: details.slice(0, -2), 
-      user_id, updateAt, id: id[0], status: 'pending'});    
+      user_id, updatedAt, id: id[0], status: 'pending'});    
   }
 
   async update(request, response) {
     const { status } = request.body;
     const { id } = request.params;
 
-    const updateAt = new Date().toISOString()
+    const updatedAt = new Date().toISOString()
 
-    await knex('purchases').update({ status, updateAt }).where({ id });
+    await knex('purchases').update({ status, updatedAt }).where({ id });
 
-    return response.json(updateAt);
+    return response.json(updatedAt);
   }
 
   async index(request, response) {

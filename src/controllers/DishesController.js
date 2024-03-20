@@ -21,21 +21,27 @@ class DishesController {
   }
 
   async update(request, response) {
-    let { name, category, price, description, ingredients } = request.body;
+    const { name, category, price, description, ingredients } = request.body;
     const { id } = request.params;
-
+  
     const dishesRepository = new DishesRepository();
     const dishUpdateServices = new DishUpdateServices(dishesRepository);
-    await dishUpdateServices.execute({
-      id,
-      name,
-      category,
-      price,
-      description,
-      ingredients,
-    });
-    
-    return response.json();
+  
+    try {
+      await dishUpdateServices.execute({
+        id,
+        name,
+        category,
+        price,
+        description,
+        ingredients,
+      });
+  
+      return response.json({ message: 'Prato atualizado com sucesso' });
+    } catch (error) {
+      console.error(error); 
+      return response.status(500).json({ error: 'Não foi possível atualizar o prato' });
+    }
   }
 
   async show(request, response) {

@@ -33,7 +33,7 @@ class PurchasesController {
 
   async update(request, response) {
     const { status } = request.body;
-    const { id } = request.param;
+    const { id } = request.params;
 
     const updateAt = new Date().toISOString()
 

@@ -9,7 +9,7 @@ Foi desenvolvida uma API Rest completa em Node.js e Express para o restaurante f
   <a href="#como-rodar">Como rodar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#endpoints">Endpoints</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#foi-utilizado">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/eduardonobrega/food-explorer-frontend">Front-end</a>&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/gabrielbeli/foodexplorer-frontend">Front-end</a>&nbsp;&nbsp;&nbsp;
 </p>
 
 ## Estrutura do banco de dados:
